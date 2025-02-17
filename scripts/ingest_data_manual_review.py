@@ -21,11 +21,12 @@ def preprocess_manual_review(csv_file_path: str) -> pd.DataFrame:
             dt = None
         return dt.date() if pd.notnull(dt) else None
 
-    # Using the converters parameter to handle conversation_created_date.
+    # Using converters parameter to handle conversation_created_date.
     converters = {
         'conversation_created_date': convert_conversation_created_date
     }
     
+    # Reading CSV
     df = pd.read_csv(csv_file_path, converters=converters)
     
     dtype_spec = {
@@ -54,13 +55,12 @@ def preprocess_manual_review(csv_file_path: str) -> pd.DataFrame:
     print(df.dtypes)
     return df
 
-#  Inserting Data into BigQuery
+#  Inserting data into BigQuery table
 def insert_manual_review_data(df: pd.DataFrame, table_id: str):
     load_job = client.load_table_from_dataframe(df, table_id)
     load_job.result() 
     print(f"Loaded {load_job.output_rows} rows into {table_id}.")
 
-#   Main func
 def main():
     manual_review_csv = r'C:\Users\noffel\klaus-bigquery-ingestion\data\manual_reviews_test - manual_reviews.csv'
     manual_review_table_id = "klaus-data-model.klaus_dataset.ManualReview"
