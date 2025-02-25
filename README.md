@@ -89,6 +89,9 @@ FROM `klaus-data-model.klaus_dataset.ManualRating`
 GROUP BY review_id;
 
 ```
+[Output](tasks/sql_task_3_a.csv)
+
+---
 
 ### **Task 2: Ticket Average Score**
 Calculate the average score for each ticket in `autoqa_ratings_test.csv`.
@@ -101,6 +104,9 @@ SELECT
 FROM `klaus-data-model.klaus_dataset.AutoQARating`
 GROUP BY external_ticket_id;
 ```
+[Output](tasks/sql_task_3_b.csv)
+
+---
 
 ### **Task 3: Reviewee Average Score**
 Calculate the average review score for each reviewee in `manual_reviews_test.csv` table if the reviewee has two or more reviews.
@@ -114,5 +120,6 @@ FROM `klaus-data-model.klaus_dataset.ManualReview`
 GROUP BY reviewee_id
 HAVING COUNT(*) >= 2;
 ```
+[Output](tasks/sql_task_3_c.csv)
 
 ---
